@@ -1,0 +1,146 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h1 class="text-center">Listado de trabajadores</h1>
+<br />
+
+<!-- Button trigger modal -->
+<div class="row">
+    <div class="col-6 col-sm-9">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal">
+            Nuevo registro
+        </button>
+    </div>
+    <div class="col-6 col-sm-3">
+        <label for="filtroSexo">Filtro por sexo</label>
+        <select class="form-select ms-auto" id="filtroSexo" onchange="listadoTrabajadores()">
+            <option value="">Todos</option>
+            <option value="M">Masculino</option>
+            <option value="F">Femenino</option>
+        </select>
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="tituloModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="tituloModal">Agregar trabajador</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <form class="needs-validation" id="formulario" novalidate action="javascript:accionFormulario()">
+                    <input type="hidden" id="idTrabajador" value="" />
+                    <div class="mb-3">
+                        <label for="cboTipoDocumento" class="form-label">Tipo de documento</label>
+                        <select class="form-select" id="cboTipoDocumento" required>
+                            <option selected value="">Seleccione</option>
+                            <option value="DNI">DNI</option>
+                            <option value="PAS">Pasaporte</option>
+                        </select>
+
+                        <div class="invalid-feedback">
+                            Seleccione un tipo de documento
+                        </div>
+
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="txtNumeroDocumento" class="form-label">Número de documento</label>
+                        <input type="text" class="form-control" id="txtNumeroDocumento" maxlength="50" required>
+                        <div class="invalid-feedback">
+                            Ingrese un número de documento
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="txtNombres" class="form-label">Nombres</label>
+                        <input type="text" class="form-control" id="txtNombres" required maxlength="500">
+                        <div class="invalid-feedback">
+                            Ingrese los nombres
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="sexo" class="form-label">Sexo</label>
+                        <br />
+
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="checkSexo" id="checkMasculino" value="M" required>
+                            <label class="form-check-label" for="checkMasculino">Masculino</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="checkSexo" id="checkFemenino" value="F" required>
+                            <label class="form-check-label" for="checkFemenino">Femenino</label>
+                        </div>
+
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="cboDepartamento" class="form-label">Departamento</label>
+                        <select class="form-select" id="cboDepartamento" onchange="getProvincias()" required>
+                        </select>
+                        <div class="invalid-feedback">
+                            Seleccione un departamento
+                        </div>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label for="cboProvincia" class="form-label">Provincia</label>
+                        <select class="form-select" id="cboProvincia" onchange="getDistritos()" required>
+                        </select>
+                        <div class="invalid-feedback">
+                            Seleccione una provincia
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="cboDistrito" class="form-label">Distrito</label>
+                        <select class="form-select" id="cboDistrito" required>
+                        </select>
+                        <div class="invalid-feedback">
+                            Seleccione un distrito
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="limpiarFormulario()">Cerrar</button>
+                <button type="submit" form="formulario" id="btnFormulario" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="table-responsive">
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Tipo Documento</th>
+                <th scope="col">Nro Documento</th>
+                <th scope="col">Nombres</th>
+                <th scope="col">Sexo</th>
+                <th scope="col">Departamento</th>
+                <th scope="col">Provincia</th>
+                <th scope="col">Distrito</th>
+                <th scope="col">Acción</th>
+            </tr>
+        </thead>
+        <tbody id="datos">
+        </tbody>
+
+    </table>
+</div>
+<script src="~/js/trabajadores.js"></script>
